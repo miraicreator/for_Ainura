@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Для Айнуры</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Montserrat',sans-serif;
+background:
+radial-gradient(circle at top,#252525 0%,#111111 45%,#050505 100%);
+color:white;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:750px;
+}
+
+.screen{
+display:none;
+text-align:center;
+animation:fade .6s ease;
+}
+
+.screen.active{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.card{
+background:rgba(255,255,255,.04);
+backdrop-filter:blur(20px);
+border:1px solid rgba(212,175,55,.25);
+border-radius:30px;
+padding:50px 40px;
+}
+
+.hamsa{
+width:140px;
+margin:0 auto 25px;
+display:block;
+filter:drop-shadow(0 0 15px rgba(212,175,55,.35));
+}
+
+h1{
+font-family:'Cormorant Garamond',serif;
+font-size:60px;
+color:#d4af37;
+margin-bottom:20px;
+}
+
+.text{
+font-size:20px;
+line-height:1.8;
+color:#e0e0e0;
+margin-bottom:35px;
+}
+
+button{
+background:#d4af37;
+border:none;
+color:#111;
+padding:15px 35px;
+border-radius:14px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+}
+
+input,
+select{
+width:100%;
+padding:15px;
+border:none;
+border-radius:14px;
+background:#1b1b1b;
+color:white;
+font-size:16px;
+margin-top:10px;
+margin-bottom:20px;
+}
+
+.option{
+padding:16px;
+background:#1a1a1a;
+border:1px solid #2b2b2b;
+border-radius:14px;
+margin-bottom:12px;
+cursor:pointer;
+transition:.3s;
+}
+
+.option:hover{
+border-color:#d4af37;
+}
+
+.option.selected{
+border-color:#d4af37;
+background:rgba(212,175,55,.08);
+}
+
+.result{
+font-size:20px;
+line-height:2;
+}
+
+@media(max-width:768px){
+
+.card{
+padding:35px 25px;
+}
+
+h1{
+font-size:42px;
+}
+
+.text{
+font-size:17px;
+}
+
+.hamsa{
+width:110px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Экран 1 -->
+<div class="screen active" id="screen1">
+
+<div class="card">
+
+<svg class="hamsa" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M100 20C90 20 85 30 85 45V95M100 20C110 20 115 30 115 45V95M100 20V95M65 55C55 55 50 65 50 80V120M135 55C145 55 150 65 150 80V120M35 95C25 95 20 105 20 120V150C20 200 55 240 100 240C145 240 180 200 180 150V120C180 105 175 95 165 95" stroke="#D4AF37" stroke-width="6" stroke-linecap="round"/>
+<circle cx="100" cy="145" r="28" stroke="#D4AF37" stroke-width="5"/>
+<circle cx="100" cy="145" r="8" fill="#D4AF37"/>
+</svg>
+
+<h1>Айнура</h1>
+
+<div class="text">
+У меня есть для тебя небольшое предложение.
+</div>
+
+<button onclick="next(2)">Открыть</button>
+
+</div>
+</div>
+
+<!-- Экран 2 -->
+<div class="screen" id="screen2">
+<div class="card">
+
+<div class="text">
+Иногда полезно ненадолго отвлечься<br>
+от повседневных дел и сменить обстановку.
+</div>
+
+<button onclick="next(3)">Дальше</button>
+
+</div>
+</div>
+
+<!-- Экран 3 -->
+<div class="screen" id="screen3">
+<div class="card">
+
+<div class="text">
+Поэтому я хочу пригласить тебя<br>
+на свидание.
+</div>
+
+<button onclick="next(4)">Интересно</button>
+
+</div>
+</div>
+
+<!-- Экран 4 -->
+<div class="screen" id="screen4">
+<div class="card">
+
+<div class="text">
+Если идея тебе нравится,<br>
+выбери удобные для себя дату и время.
+</div>
+
+<input type="date" id="date">
+<input type="time" id="time">
+
+<button onclick="goToScreen5()">Продолжить</button>
+
+</div>
+</div>
+
+<!-- Экран 5 -->
+<div class="screen" id="screen5">
+<div class="card">
+
+<div class="text">
+Что тебе больше нравится?
+</div>
+
+<div class="option" onclick="selectOption(this,'☕ Кофе')">☕ Кофе</div>
+<div class="option" onclick="selectOption(this,'🚶 Прогулка')">🚶 Прогулка</div>
+<div class="option" onclick="selectOption(this,'🍽️ Ужин')">🍽️ Ужин</div>
+<div class="option" onclick="selectOption(this,'🎬 Кино')">🎬 Кино</div>
+<div class="option" onclick="selectOption(this,'✨ Выберем вместе')">✨ Выберем вместе</div>
+
+<br>
+
+<button onclick="finish()">Подтвердить</button>
+
+</div>
+</div>
+
+<!-- Экран 6 -->
+<div class="screen" id="screen6">
+<div class="card">
+
+<svg class="hamsa" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M100 20C90 20 85 30 85 45V95M100 20C110 20 115 30 115 45V95M100 20V95M65 55C55 55 50 65 50 80V120M135 55C145 55 150 65 150 80V120M35 95C25 95 20 105 20 120V150C20 200 55 240 100 240C145 240 180 200 180 150V120C180 105 175 95 165 95" stroke="#D4AF37" stroke-width="6" stroke-linecap="round"/>
+<circle cx="100" cy="145" r="28" stroke="#D4AF37" stroke-width="5"/>
+<circle cx="100" cy="145" r="8" fill="#D4AF37"/>
+</svg>
+
+<h1>Спасибо ✨</h1>
+
+<div class="result" id="result"></div>
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+let selectedPlace = '';
+
+function next(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById('screen'+id).classList.add('active');
+}
+
+function goToScreen5(){
+
+const date = document.getElementById('date').value;
+const time = document.getElementById('time').value;
+
+if(!date || !time){
+alert('Пожалуйста, выбери дату и время');
+return;
+}
+
+next(5);
+}
+
+function selectOption(el,value){
+
+document.querySelectorAll('.option').forEach(o=>{
+o.classList.remove('selected');
+});
+
+el.classList.add('selected');
+selectedPlace = value;
+
+}
+
+function finish(){
+
+if(!selectedPlace){
+alert('Выбери вариант');
+return;
+}
+
+const date = document.getElementById('date').value;
+const time = document.getElementById('time').value;
+
+document.getElementById('result').innerHTML = `
+Дата: ${date}<br>
+Время: ${time}<br>
+Формат: ${selectedPlace}<br><br>
+Отлично ✨
+
+Спасибо за ответ.
+
+Буду ждать нашей встречи.
+`;
+
+const TOKEN = "8771476351:AAGgKX6VKQ3eeoh7t8ueO8gw5d1jZAEOkJA";
+const CHAT_ID = "623663469";
+
+const telegramMessage =
+`Айнура выбрала:
+
+📅 Дата: ${date}
+🕒 Время: ${time}
+📍 Формат: ${selectedPlace}`;
+
+fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+chat_id:CHAT_ID,
+text:telegramMessage
+})
+})
+.then(response=>response.json())
+.then(data=>console.log(data))
+.catch(error=>console.error(error));
+
+next(6);
+
+}
+
+</script>
+
+</body>
+</html>
